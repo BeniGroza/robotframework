@@ -47,11 +47,13 @@ class XUnitFileWriter(ResultVisitor):
             return
         self._root_suite = suite
         tests, failures, skipped = self._get_stats(suite.statistics)
+        time = self._time_as_seconds(suite.elapsedtime)
         attrs = {'name': suite.name,
                  'tests': tests,
                  'errors': '0',
                  'failures': failures,
-                 'skipped': skipped}
+                 'skipped': skipped,
+                 'time': time}
         self._writer.start('testsuite', attrs)
 
     def _get_stats(self, statistics):
